@@ -11,6 +11,8 @@
  * SPI MISO    MISO          12
  * SPI SCK     SCK           13
  * ----------------------------------
+ * ----------------------------------
+ * LED mit Vorwiederstand an PIN 3 des Arduino zur visuellen Rückmeldung
  */
 
 
@@ -62,25 +64,27 @@ void loop()
     if (karte_check == 1) 
     {
       digitalWrite(karteOK, HIGH);
+      delay(2000);
+      digitalWrite(karteOK, LOW);
     }
     if (karte_check != 1) 
     {
       int i = 0;
-      while(i<5)
+      while(i<8)
       {
         digitalWrite(karteOK, HIGH);
-        delay(100);
+        delay(70);
         digitalWrite(karteOK, LOW);
-        delay(100);
+        delay(70);
         i++;
       }
     }
 
       
 
-      mfrc522.PICC_HaltA(); // Versetzt die Karte in Temporären Ruhemodus um eventuell weitere Karte zu lesen
-      delay(2000);          // 1 Sekunde Wartezeit…
-    digitalWrite (karteOK, LOW);
+      mfrc522.PICC_HaltA(); // Versetzt den gelesenen Transponder in temporären Ruhemodus um eventuell weitere Karte zu lesen
+      delay(1000);          // 1 Sekunde Wartezeit…
+   
     
   }
 
